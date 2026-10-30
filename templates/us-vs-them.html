@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.top{margin-bottom:36px}
+.hl{flex:0 0 {{ '20%' if S.key == '9x16' else '22%' }};margin-bottom:40px}
+.table{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr {{ 210 if S.key != '1x1' else 170 }}px {{ 210 if S.key != '1x1' else 170 }}px;grid-template-rows:auto;grid-auto-rows:1fr;column-gap:0}
+.cell{display:flex;align-items:center;font-size:40px;line-height:1.15;font-weight:600;border-bottom:2px solid color-mix(in srgb, var(--ink) 14%, transparent)}
+.lab{padding-right:20px}
+.us{justify-content:center;background:var(--primary);color:var(--on-primary);border-bottom-color:color-mix(in srgb, var(--on-primary) 22%, transparent);text-align:center}
+.them{justify-content:center;color:var(--muted);text-align:center;font-weight:500}
+.head{font-size:30px;font-weight:800;padding:26px 8px;border-bottom-width:3px}
+.head.us{border-radius:28px 28px 0 0;font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);font-size:38px;letter-spacing:-0.01em;text-transform:var(--tt)}
+.last.us{border-radius:0 0 28px 28px;border-bottom:none}
+.last{border-bottom:none}
+.size-1x1 .cell{font-size:30px}
+.size-9x16 .cell{font-size:42px}
+.foot{margin-top:40px}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="row top">{{ m.brandmark(brand, logo) }}</div>
+  <div class="hl display end" data-fit data-max="120" data-min="48"><div class="t txt">{{ c.headline }}</div></div>
+  <div class="table">
+    <div class="cell head lab"></div>
+    <div class="cell head us txt">{{ c.us_label or brand.name }}</div>
+    <div class="cell head them txt">{{ c.them_label or 'Others' }}</div>
+    {% for r in c.rows %}{% set last = 'last' if loop.last else '' %}
+    <div class="cell lab txt {{ last }}">{{ r.label }}</div>
+    <div class="cell us {{ last }}">{% if r.us is sameas true %}{{ m.tick(50) }}{% elif r.us is sameas false %}{{ m.cross(40) }}{% else %}<span class="txt">{{ r.us }}</span>{% endif %}</div>
+    <div class="cell them {{ last }}">{% if r.them is sameas true %}{{ m.tick(46) }}{% elif r.them is sameas false %}{{ m.cross(40) }}{% else %}<span class="txt">{{ r.them }}</span>{% endif %}</div>
+    {% endfor %}
+  </div>
+  <div class="row foot">{{ m.cta_btn(cta) }}{% if brand.handle %}<div class="handle txt">{{ brand.handle }}</div>{% endif %}</div>
+</div>
+{% endblock %}

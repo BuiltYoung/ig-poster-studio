@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.top{margin-bottom:20px}
+.numwrap{position:relative;flex:0 0 {{ '34%' if S.key == '9x16' else '42%' }};display:flex;align-items:center}
+.num{position:relative;width:100%;height:100%;align-items:flex-start;justify-content:center}
+.num .t{display:inline-block;width:auto;padding:0 .08em}
+.label{flex:0 0 auto;font-size:{{ 92 if S.key != '1x1' else 64 }}px;margin-top:10px}
+.sub{font-size:38px;line-height:1.3;font-weight:500;color:var(--muted);margin-top:28px;max-width:92%}
+.grow{flex:1 1 0}
+.src{font-size:24px;line-height:1.35;color:var(--muted);margin-top:24px;border-left:4px solid var(--accent);padding-left:18px}
+.foot{margin-top:36px}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="row top">{{ m.brandmark(brand, logo) }}{% if brand.handle %}<div class="handle txt">{{ brand.handle }}</div>{% endif %}</div>
+  <div class="numwrap">
+    <div class="num display" data-fit data-max="{{ 420 if S.key != '1x1' else 260 }}" data-min="90"><div class="t txt">{{ c.number }}</div></div>
+  </div>
+  <div class="label display txt">{{ c.label }}</div>
+  {% if c.sub %}<div class="sub txt">{{ c.sub }}</div>{% endif %}
+  <div class="grow"></div>
+  {% if c.source %}<div class="src txt">Source: {{ c.source }}</div>{% endif %}
+  <div class="row foot">{{ m.cta_btn(cta) }}</div>
+</div>
+<script>
+// marker ring around the number, drawn after the number is sized
+window.__after = function(){
+  var t = document.querySelector('.num .t'), wrap = document.querySelector('.numwrap');
+  if (!t) return;
+  var b = t.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+  var col = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+  var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  s.setAttribute('viewBox', '0 0 100 60'); s.setAttribute('preserveAspectRatio', 'none');
+  s.style.cssText = 'position:absolute;overflow:visible;pointer-events:none;left:' + (b.left - w.left - b.width * 0.06) + 'px;top:' + (b.top - w.top + b.height * 0.02) + 'px;width:' + (b.width * 1.12) + 'px;height:' + (b.height * 0.96) + 'px';
+  s.innerHTML = '<path d="M52 4 C 20 2, 2 14, 3 32 C 4 52, 34 59, 60 57 C 86 55, 99 42, 97 26 C 95 10, 70 1, 38 6" fill="none" stroke="' + col + '" vector-effect="non-scaling-stroke" stroke-linecap="round" style="stroke-width:9px"/>';
+  wrap.appendChild(s);
+};
+</script>
+{% endblock %}

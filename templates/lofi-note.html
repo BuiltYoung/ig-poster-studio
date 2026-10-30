@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{# Native-feeling note. Deliberately unbranded: the format works because it looks hand-made. #}
+{% block style %}
+.canvas{background:color-mix(in srgb, var(--accent) 55%, #e9e6df)}
+.sheet{position:absolute;top:calc(var(--pt) - 10px);bottom:calc(var(--pb) - 10px);left:calc(var(--px) - 14px);right:calc(var(--px) - 14px);background-color:#fffefa;
+  background-image:linear-gradient(90deg, transparent 96px, #f1a7a7 96px, #f1a7a7 99px, transparent 99px),
+    repeating-linear-gradient(180deg, transparent 0, transparent 63px, #c9dcef 63px, #c9dcef 65px);
+  background-position:0 0, 0 150px;box-shadow:0 18px 40px -18px rgba(0,0,0,.35);transform:rotate(-1.2deg);border-radius:6px}
+.tape{position:absolute;top:-26px;left:50%;width:220px;height:62px;transform:translateX(-50%) rotate(3deg);background:color-mix(in srgb, var(--primary) 45%, transparent);opacity:.8}
+.inner{position:absolute;top:70px;bottom:50px;left:126px;right:56px;display:flex;flex-direction:column;color:#24308a}
+.title{flex:0 0 auto;font-size:{{ 92 if S.key != '1x1' else 74 }}px;line-height:1;font-weight:700;margin-bottom:34px}
+.title u{text-decoration-thickness:4px;text-underline-offset:10px}
+.list{flex:1 1 0}
+.list ul{list-style:none;display:flex;flex-direction:column;gap:.42em}
+.list li{display:flex;gap:.35em;align-items:flex-start;line-height:1.08}
+.box{flex:none;width:.72em;height:.72em;border:4px solid #24308a;border-radius:6px;margin-top:.14em;position:relative}
+.box.on::after{content:'';position:absolute;left:.12em;top:-.18em;width:.32em;height:.62em;border:solid #c0392b;border-width:0 6px 6px 0;transform:rotate(40deg)}
+.sign{font-size:46px;align-self:flex-end;margin-top:18px}
+{% endblock %}
+{% block body %}
+<div class="sheet">
+  <div class="tape"></div>
+  <div class="inner hand">
+    <div class="title txt"><u>{{ c.headline }}</u></div>
+    <div class="list" data-fit data-max="{{ 84 if S.key != '1x1' else 60 }}" data-min="32"><ul class="txt">
+      {% for it in c['items'] %}<li><span class="box {{ 'on' if (it is mapping and it.done) or (it is string and not c.unchecked) else '' }}"></span><span>{{ it.text if it is mapping else it }}</span></li>{% endfor %}
+    </ul></div>
+    <div class="sign txt">{{ c.sign or ('— ' ~ (brand.handle or brand.name)) }}</div>
+  </div>
+</div>
+{% endblock %}

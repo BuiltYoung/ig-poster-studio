@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+{% set role = slide.role or ('cover' if si == 1 else ('cta' if si == sc else 'point')) %}
+{% if role == 'cover' %}.canvas{background:var(--primary);color:var(--on-primary)}
+{% elif role == 'cta' %}.canvas{background:var(--ink);color:var(--on-ink)}{% endif %}
+.top .count{font-size:28px;font-weight:700;opacity:.7}
+.hl{flex:1 1 0;margin-top:30px}
+.sub{font-size:38px;line-height:1.28;font-weight:500;margin-top:30px;max-width:90%}
+.foot{margin-top:40px}
+.dots{display:flex;gap:10px}
+.dots i{width:14px;height:14px;border-radius:50%;background:currentColor;opacity:.25}
+.dots i.on{opacity:1;width:38px;border-radius:8px}
+.swipe{display:flex;align-items:center;gap:6px;font-size:44px}
+/* point slides */
+.pnum{font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);color:var(--primary);font-size:{{ 300 if S.key != '1x1' else 200 }}px;line-height:.82;letter-spacing:-0.05em;margin-top:36px}
+.ptitle{flex:1 1 0;margin-top:20px}
+.ptitle.withimg{flex:0 0 {{ '14%' if S.key == '9x16' else '16%' }}}
+.pnum.withimg{font-size:150px}
+.pbody{flex:0 0 auto;margin-top:28px;font-size:{{ 42 if S.key != '1x1' else 34 }}px;font-weight:500;line-height:1.3;max-width:94%}
+.pmedia{position:relative;flex:1 1 0;min-height:0;margin-top:30px;overflow:hidden;border-radius:0 0 8px 8px}
+.pmedia .phone{position:absolute;top:24px;height:135%;left:50%;transform:translateX(-50%) rotate(-4deg)}
+.pmedia .photo{position:absolute;inset:0}
+.cta-big{--cta-bg:var(--primary);--cta-fg:var(--on-primary);font-size:44px;padding:30px 52px;margin-top:44px}
+{% endblock %}
+{% block body %}
+{% set role = slide.role or ('cover' if si == 1 else ('cta' if si == sc else 'point')) %}
+<div class="frame">
+  <div class="row top">{{ m.brandmark(brand, logo) }}<div class="count txt">{{ si }}/{{ sc }}</div></div>
+  {% if role == 'cover' %}
+    <div class="hl display end" data-fit data-max="210" data-min="70"><div class="t txt">{{ slide.headline }}</div></div>
+    {% if slide.sub %}<div class="sub txt">{{ slide.sub }}</div>{% endif %}
+    <div class="row foot"><div class="dots">{% for i in range(sc) %}<i class="{{ 'on' if loop.index == si else '' }}"></i>{% endfor %}</div><div class="swipe hand txt">{{ slide.swipe or 'swipe' }} {{ m.arrow('right', 80, 'currentColor') }}</div></div>
+  {% elif role == 'cta' %}
+    <div class="hl display end" data-fit data-max="150" data-min="56"><div class="t txt">{{ slide.headline }}</div></div>
+    {% if slide.sub %}<div class="sub txt">{{ slide.sub }}</div>{% endif %}
+    {{ m.cta_btn(slide.cta or cta, 'cta-big') }}
+    <div class="row foot"><div class="dots">{% for i in range(sc) %}<i class="{{ 'on' if loop.index == si else '' }}"></i>{% endfor %}</div>{% if brand.handle %}<div class="handle txt">{{ brand.handle }}</div>{% endif %}</div>
+  {% else %}
+    {% set wi = 'withimg' if (slide.image and images[slide.image]) else '' %}
+    {% if not slide.unnumbered %}<div class="pnum txt {{ wi }}">{{ slide.n or (si - 1) }}</div>{% endif %}
+    <div class="ptitle display end {{ wi }}" data-fit data-max="{{ 150 if not wi else 96 }}" data-min="44"><div class="t txt">{{ slide.headline }}</div></div>
+    {% if slide.body %}<div class="pbody txt">{{ slide.body }}</div>{% endif %}
+    {% if wi %}<div class="pmedia">{{ m.media(images[slide.image], is_app) }}</div>{% endif %}
+    <div class="row foot"><div class="dots">{% for i in range(sc) %}<i class="{{ 'on' if loop.index == si else '' }}"></i>{% endfor %}</div><div class="swipe hand txt">{{ m.arrow('right', 70, 'currentColor') }}</div></div>
+  {% endif %}
+</div>
+{% endblock %}

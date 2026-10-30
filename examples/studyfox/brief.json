@@ -1,0 +1,115 @@
+{
+  "sheet_note": "Studyfox is a fictional demo product. Names, quotes and numbers are placeholders, not real data.",
+  "brand": {
+    "name": "Studyfox",
+    "logo_text": "studyfox",
+    "handle": "@studyfox.app",
+    "font_pair": "grotesk",
+    "palette": {"paper": "#F4F2FF", "ink": "#1C1A3A", "primary": "#FF5B2E", "accent": "#C9F04D", "muted": "#6E6A8C"},
+    "alt_palettes": [
+      {"paper": "#EEF5F2", "ink": "#0E2E2A", "primary": "#2F5BFF", "accent": "#FFC93C", "muted": "#557069"}
+    ]
+  },
+  "product": {
+    "name": "Studyfox",
+    "kind": "app",
+    "one_liner": "Snap your class notes, get a 5-minute quiz.",
+    "price": "Free",
+    "images": {"quiz": "assets/screen-quiz.png", "scan": "assets/screen-scan.png"}
+  },
+  "defaults": {"sizes": ["4x5"], "cta": "Try it free"},
+  "posts": [
+    {
+      "id": "hero", "archetype": "hero", "image": "quiz", "sizes": ["4x5", "9x16"], "palettes": "all",
+      "copy": {"headline": "Your notes, now a 5-minute quiz", "sub": "Snap a page. Studyfox writes the questions.", "badge": "New", "sticker": "Free"},
+      "caption": "Snap your notes → get a quiz in seconds. Free for students. Link in bio.",
+      "alt": "Phone showing a Studyfox biology quiz with the headline 'Your notes, now a 5-minute quiz'."
+    },
+    {
+      "id": "claim", "archetype": "bold-claim", "palettes": "all",
+      "copy": {"headline": "Rereading isn't studying.", "sub": "Quizzing yourself is. Studyfox makes the quiz for you.", "note": "studyfox.app"},
+      "caption": "Highlighting and rereading feel productive. Testing yourself is what makes it stick.",
+      "alt": "Bold text: Rereading isn't studying."
+    },
+    {
+      "id": "problem", "archetype": "problem-solution", "image": "scan",
+      "copy": {"problem_label": "the night before the test:", "problem": "40 pages of notes. No idea what matters.", "bridge": "so we built this", "headline": "Snap. Quiz. Done in 5 minutes.", "sub": "Works with handwritten notes."},
+      "caption": "We've all been there. Studyfox turns the pile into one short quiz.",
+      "alt": "Crossed-out problem statement above an orange panel showing the Studyfox note scanner."
+    },
+    {
+      "id": "vs", "archetype": "us-vs-them",
+      "copy": {"headline": "Study smarter, not longer", "us_label": "Studyfox", "them_label": "Rereading",
+        "rows": [
+          {"label": "Tests what you actually remember", "us": true, "them": false},
+          {"label": "Built from your own notes", "us": true, "them": true},
+          {"label": "Shows what to review next", "us": true, "them": false},
+          {"label": "Time per chapter", "us": "5 min", "them": "45 min"}
+        ]},
+      "caption": "Same notes. Very different results.",
+      "alt": "Comparison table of Studyfox versus rereading notes."
+    },
+    {
+      "id": "review", "archetype": "testimonial",
+      "copy": {"quote": "I used to reread my bio notes three times. Now I quiz once and actually know it.", "name": "Maya R.", "role": "Grade 11 · beta tester", "stars": 5, "verified": false},
+      "caption": "From our beta group.",
+      "alt": "Five-star student quote about Studyfox."
+    },
+    {
+      "id": "reasons", "archetype": "listicle", "sizes": ["4x5", "3x4"],
+      "copy": {"headline": "3 reasons it beats rereading",
+        "items": [
+          {"title": "Snap any page", "sub": "Handwritten or typed notes both work"},
+          {"title": "A quiz in seconds", "sub": "Questions come from your own notes"},
+          {"title": "Review only your misses", "sub": "Wrong answers come back tomorrow"}
+        ]},
+      "caption": "Save this for your next test week.",
+      "alt": "Numbered list of three Studyfox features."
+    },
+    {
+      "id": "features", "archetype": "feature-callouts", "image": "quiz",
+      "copy": {"headline": "A quiz built from your notes", "callouts": ["questions from YOUR notes", "streaks keep you going", "see what you missed", "done in 5 minutes"]},
+      "caption": "Here's what's inside.",
+      "alt": "Studyfox quiz screen with handwritten feature labels around it."
+    },
+    {
+      "id": "beforeafter", "archetype": "before-after",
+      "copy": {"headline": "Same chapter, different night",
+        "before_label": "before", "before_big": "45 min", "before": ["Rereading highlights", "Still blank on the test"],
+        "after_label": "with studyfox", "after_big": "5 min", "after": ["Quizzed on what matters", "Misses come back tomorrow"]},
+      "caption": "Before vs after Studyfox.",
+      "alt": "Before and after panels: 45 minutes of rereading versus a 5-minute quiz."
+    },
+    {
+      "id": "note", "archetype": "lofi-note", "sizes": ["4x5", "1x1"],
+      "copy": {"headline": "things I wish I knew in gr 9", "items": ["rereading ≠ studying", "quiz yourself the night before", "sleep beats cramming", "an app can write the quiz for you"]},
+      "caption": "Sending this to my younger self.",
+      "alt": "Handwritten notebook list of study tips."
+    },
+    {
+      "id": "launch", "archetype": "offer", "image": "quiz", "show_image": true, "sizes": ["4x5", "9x16"],
+      "copy": {"kicker": "launch week", "headline": "Free for every student", "sub": "Every feature unlocked until Nov 9.", "badge": "Nov 3–9", "fine": "No card needed. The free plan stays free.", "cta": "Get it free"},
+      "caption": "Launch week is here. Everything unlocked, no card needed.",
+      "alt": "Launch offer poster: Free for every student, Nov 3 to 9."
+    },
+    {
+      "id": "beta", "archetype": "stat",
+      "copy": {"number": "4,200", "label": "quizzes made in beta", "sub": "In our first month of testing with high school students.", "source": "Studyfox beta dashboard, Oct 2026 (demo data)"},
+      "caption": "Thank you, beta testers.",
+      "alt": "4,200 quizzes made in beta."
+    },
+    {
+      "id": "plan", "archetype": "carousel",
+      "slides": [
+        {"role": "cover", "headline": "The 30-minute test prep plan", "sub": "Save this for your next test."},
+        {"headline": "Snap your notes", "body": "Photograph the pages your teacher covered. Handwriting is fine.", "image": "scan"},
+        {"headline": "Quiz before you reread", "body": "Answer first, then check. Getting it wrong is how you find the gaps."},
+        {"headline": "Review only your misses", "body": "Skip what you already know. Spend the time on the questions you got wrong."},
+        {"headline": "Sleep on it", "body": "One quiz tonight and a quick retry in the morning beats a late-night cram."},
+        {"role": "cta", "headline": "Let Studyfox build the quiz", "sub": "Free for students.", "cta": "Try it free"}
+      ],
+      "caption": "Save this for test week. Step 1 takes 2 minutes.",
+      "alt": "Six-slide carousel: a 30-minute test prep plan."
+    }
+  ]
+}

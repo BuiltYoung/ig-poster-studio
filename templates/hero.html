@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.top{margin-bottom:44px}
+.badge{font-weight:700;font-size:28px;padding:12px 24px;border:3px solid var(--ink);border-radius:999px;line-height:1}
+.hl{flex:0 0 {{ '27%' if S.key == '9x16' else '30%' }}}
+.sub{font-size:36px;line-height:1.28;font-weight:500;margin-top:24px;max-width:86%;opacity:.85}
+.cta-wrap{margin-top:36px}
+.media{position:relative;flex:1 1 0;min-height:0;margin-top:40px}
+.stage{position:absolute;top:30%;left:calc(-1 * var(--px));right:calc(-1 * var(--px));bottom:calc(-1 * var(--pb) - 2px);background:var(--primary);border-radius:50% 50% 0 0 / 70px 70px 0 0}
+.media .phone,.media .photo{position:absolute;top:0;height:165%;left:52%;transform:translateX(-50%) rotate(-5deg)}
+.media .photo{width:78%;height:120%;transform:translateX(-50%) rotate(-3deg)}
+.sticker{position:absolute;left:0;top:42%;width:200px;height:200px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;text-align:center;transform:rotate(-12deg);font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);font-size:46px;line-height:.95;padding:20px;z-index:2;text-transform:var(--tt)}
+.size-1x1 .sticker{width:160px;height:160px;font-size:36px;top:36%}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="row top">{{ m.brandmark(brand, logo) }}{% if c.badge %}<div class="badge txt">{{ c.badge }}</div>{% endif %}</div>
+  <div class="hl display end" data-fit data-max="{{ 150 if S.key != '1x1' else 112 }}" data-min="56"><div class="t txt">{{ c.headline }}</div></div>
+  {% if c.sub %}<div class="sub txt">{{ c.sub }}</div>{% endif %}
+  <div class="cta-wrap">{{ m.cta_btn(cta) }}</div>
+  <div class="media">
+    <div class="stage"></div>
+    {{ m.media(img, is_app) }}
+    {% if c.sticker %}<div class="sticker txt">{{ c.sticker }}</div>{% endif %}
+  </div>
+</div>
+{% endblock %}

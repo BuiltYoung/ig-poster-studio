@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.canvas{background:var(--primary);color:var(--on-primary)}
+.hl{flex:1 1 0;margin:40px 0 0}
+.sub{font-size:38px;line-height:1.25;font-weight:500;margin-top:36px;max-width:90%}
+.foot{margin-top:52px;padding-top:32px;border-top:3px solid currentColor}
+.foot .note{font-size:28px;font-weight:600;opacity:.9}
+.cta{--cta-bg:var(--paper);--cta-fg:var(--ink)}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="row">{{ m.brandmark(brand, logo) }}{% if brand.handle %}<div class="handle txt">{{ brand.handle }}</div>{% endif %}</div>
+  <div class="hl display end" data-fit data-max="230" data-min="72"><div class="t txt">{{ c.headline }}</div></div>
+  {% if c.sub %}<div class="sub txt">{{ c.sub }}</div>{% endif %}
+  <div class="row foot">{{ m.cta_btn(cta) }}{% if c.note %}<div class="note txt">{{ c.note }}</div>{% endif %}</div>
+</div>
+{% endblock %}

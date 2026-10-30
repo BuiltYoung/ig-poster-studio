@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.top{margin-bottom:34px}
+.hl{flex:0 0 {{ '18%' if S.key == '9x16' else '20%' }};margin-bottom:34px}
+.panels{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.p{border-radius:40px;padding:{{ '40px 34px' if S.key != '1x1' else '28px 26px' }};display:flex;flex-direction:column;min-height:0}
+.p.b{background:color-mix(in srgb, var(--ink) 8%, var(--paper));color:var(--muted)}
+.p.a{background:var(--primary);color:var(--on-primary)}
+.lab{font-size:60px;margin-bottom:20px}
+.big{font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);letter-spacing:var(--track);text-transform:var(--tt);line-height:.95;flex:0 0 auto;font-size:{{ 150 if S.key != '1x1' else 92 }}px;margin-bottom:22px}
+.p.b .big{text-decoration:line-through;text-decoration-thickness:6px;text-decoration-color:color-mix(in srgb, var(--muted) 60%, transparent)}
+.items{flex:1 1 0;justify-content:flex-end}
+.items ul{list-style:none;display:flex;flex-direction:column;gap:.7em}
+.items li{display:flex;gap:.4em;align-items:flex-start;font-weight:600;line-height:1.15}
+.items li svg{flex:none;width:1.1em;height:1.1em;margin-top:.04em}
+.p .im{flex:1 1 0;min-height:0;border-radius:24px;overflow:hidden;margin-top:auto}
+.p .im img{width:100%;height:100%;object-fit:cover}
+.p.b .im img{filter:grayscale(1) contrast(.9)}
+.foot{margin-top:34px}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="row top">{{ m.brandmark(brand, logo) }}{% if brand.handle %}<div class="handle txt">{{ brand.handle }}</div>{% endif %}</div>
+  <div class="hl display end" data-fit data-max="116" data-min="46"><div class="t txt">{{ c.headline }}</div></div>
+  <div class="panels">
+    {% for side in ['b','a'] %}{% set pre = 'before' if side == 'b' else 'after' %}
+    <div class="p {{ side }}">
+      <div class="lab hand txt">{{ c[pre ~ '_label'] or pre|capitalize }}</div>
+      {% if c[pre ~ '_big'] %}<div class="big" data-fit data-max="{{ 150 if S.key != '1x1' else 92 }}" data-min="56"><div class="txt" style="white-space:nowrap">{{ c[pre ~ '_big'] }}</div></div>{% endif %}
+      {% if c[pre] %}<div class="items" data-fit data-max="{{ 48 if S.key != '1x1' else 34 }}" data-min="20"><ul class="txt">
+        {% for it in c[pre] %}<li>{% if side == 'b' %}{{ m.cross(24) }}{% else %}{{ m.tick(26) }}{% endif %}<span>{{ it }}</span></li>{% endfor %}
+      </ul></div>{% endif %}
+      {% if c[pre ~ '_image'] and images[c[pre ~ '_image']] %}<div class="im"><img src="{{ images[c[pre ~ '_image']] }}" alt=""></div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row foot">{{ m.cta_btn(cta) }}</div>
+</div>
+{% endblock %}

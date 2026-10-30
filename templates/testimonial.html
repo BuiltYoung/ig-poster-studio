@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block style %}
+.qmark{font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);color:var(--primary);font-size:320px;line-height:.7;height:170px;margin-top:20px;letter-spacing:0}
+.quote{flex:1 1 0;margin-top:10px}
+.quote .t{font-style:{{ 'italic' if F.display == "'InstrumentSerif'" else 'normal' }}}
+.who{display:flex;align-items:center;gap:26px;margin-top:44px}
+.avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none}
+.name{font-size:36px;font-weight:700;line-height:1.1}
+.role{font-size:28px;font-weight:500;color:var(--muted);margin-top:6px}
+.stars{color:var(--primary);margin-top:40px}
+.foot{margin-top:48px;padding-top:30px;border-top:2px solid color-mix(in srgb, var(--ink) 16%, transparent)}
+.foot .cta{font-size:30px;padding:20px 32px}
+{% endblock %}
+{% block body %}
+<div class="frame">
+  <div class="qmark">&ldquo;</div>
+  <div class="quote display center" data-fit data-max="150" data-min="40"><div class="t txt">{{ c.quote }}</div></div>
+  <div style="color:var(--primary)">{{ m.stars(c.stars or 5, 46, 'var(--primary)') }}</div>
+  <div class="who">
+    {% if c.avatar and images[c.avatar] %}<img class="avatar" src="{{ images[c.avatar] }}" alt="">{% endif %}
+    <div><div class="name txt">{{ c.name }}</div>{% if c.role %}<div class="role txt">{{ c.role }}</div>{% endif %}</div>
+  </div>
+  <div class="row foot">{{ m.brandmark(brand, logo) }}{{ m.cta_btn(cta) }}</div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Bricolage';src:url('{{ fonts }}/BricolageGrotesque.ttf') format('truetype');font-weight:200 800;font-stretch:75% 100%}
+@font-face{font-family:'InstrumentSerif';src:url('{{ fonts }}/InstrumentSerif-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:'InstrumentSerif';src:url('{{ fonts }}/InstrumentSerif-Italic.ttf') format('truetype');font-weight:400;font-style:italic}
+@font-face{font-family:'Jakarta';src:url('{{ fonts }}/PlusJakartaSans.ttf') format('truetype');font-weight:200 800}
+@font-face{font-family:'SpaceG';src:url('{{ fonts }}/SpaceGrotesk.ttf') format('truetype');font-weight:300 700}
+@font-face{font-family:'Caveat';src:url('{{ fonts }}/Caveat.ttf') format('truetype');font-weight:400 700}
+@font-face{font-family:'Anton';src:url('{{ fonts }}/Anton-Regular.ttf') format('truetype')}
+@font-face{font-family:'InterV';src:url('{{ fonts }}/Inter.ttf') format('truetype');font-weight:100 900}
+@font-face{font-family:'Plex';src:url('{{ fonts }}/IBMPlexMono-Regular.ttf') format('truetype');font-weight:400}
+@font-face{font-family:'Plex';src:url('{{ fonts }}/IBMPlexMono-SemiBold.ttf') format('truetype');font-weight:600}
+
+:root{
+  --W:{{ S.W }}px; --H:{{ S.H }}px; --Wn:{{ S.W }}; --Hn:{{ S.H }};
+  --st:{{ S.st }}; --sb:{{ S.sb }}; --ss:{{ S.ss }};
+  --pt:{{ S.pt }}px; --pb:{{ S.pb }}px; --px:{{ S.px }}px; --m:{{ S.m }}px;
+  --paper:{{ P.paper }}; --ink:{{ P.ink }}; --primary:{{ P.primary }}; --accent:{{ P.accent }}; --muted:{{ P.muted }};
+  --on-primary:{{ P.on_primary }}; --on-accent:{{ P.on_accent }}; --on-ink:{{ P.on_ink }};
+  --display:{{ F.display|safe }}, 'Noto Sans CJK SC', 'Noto Color Emoji', sans-serif;
+  --body:{{ F.body|safe }}, 'Noto Sans CJK SC', 'Noto Color Emoji', sans-serif;
+  --hand:'Caveat', 'Noto Sans CJK SC', cursive;
+  --dw:{{ F.dw }}; --track:{{ F.track }}; --lh:{{ F.lh }}; --tt:{{ F.tt }}; --stretch:{{ F.stretch }};
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:var(--W);height:var(--H);overflow:hidden;background:var(--paper)}
+.canvas{position:relative;width:var(--W);height:var(--H);overflow:hidden;background:var(--paper);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+.frame{position:absolute;top:var(--pt);bottom:var(--pb);left:var(--px);right:var(--px);display:flex;flex-direction:column}
+.display{font-family:var(--display);font-weight:var(--dw);letter-spacing:var(--track);line-height:var(--lh);text-transform:var(--tt);font-stretch:var(--stretch);text-wrap:balance}
+[data-fit]{min-height:0;overflow:hidden;display:flex;flex-direction:column}
+[data-fit]>*{display:block;flex:none}
+.end{justify-content:flex-end}.center{justify-content:center}
+.brandmark{font-family:var(--display);font-weight:var(--dw);font-stretch:var(--stretch);letter-spacing:-0.01em;font-size:40px;line-height:1;display:flex;align-items:center;gap:14px;text-transform:none}
+.brandmark img{height:56px;width:auto;display:block}
+.handle{font-size:28px;font-weight:500;opacity:.8}
+.cta{display:inline-flex;align-items:center;align-self:flex-start;background:var(--cta-bg,var(--ink));color:var(--cta-fg,var(--on-ink));border-radius:999px;padding:24px 40px;font-family:var(--body);font-weight:700;font-size:34px;line-height:1;letter-spacing:-0.01em;white-space:nowrap}
+.row{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.phone{background:#0f1012;border-radius:58px;padding:14px;aspect-ratio:9/19.5;box-shadow:0 30px 60px -20px rgba(0,0,0,.35)}
+.phone img,.phone .phone-blank{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:46px;display:block;background:#dfe3e8}
+.photo{border-radius:36px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.hand{font-family:var(--hand);font-weight:600;line-height:1}
+.tag-sample,.tag-source{position:absolute;right:calc(var(--ss) * 1px + 20px);top:calc(var(--st) * 1px + 20px);font:700 20px/1 'InterV',sans-serif;letter-spacing:.06em;padding:10px 14px;border-radius:8px;z-index:99}
+.tag-sample{background:#fff3b0;color:#5a4a00;border:2px dashed #b89a00}
+.tag-source{background:#ffd6d6;color:#8a0000;border:2px dashed #c00}
+{% block style %}{% endblock %}
+</style></head>
+<body><div class="canvas arch-{{ post.archetype }} size-{{ S.key }}">
+{% block body %}{% endblock %}
+{% if sample %}<div class="tag-sample">SAMPLE · replace with a real quote</div>{% endif %}
+{% if source_needed %}<div class="tag-source">SOURCE NEEDED</div>{% endif %}
+</div>
+<script>
+window.__fit = function(){
+  document.querySelectorAll('[data-fit]').forEach(function(box){
+    var inner = box.firstElementChild || box;
+    var lo = +(box.dataset.min || 28), hi = +(box.dataset.max || 160);
+    function fits(){ // layout sizes, so rotated parents don't skew the measurement
+      return inner.offsetHeight <= box.clientHeight + 1 && inner.scrollWidth <= inner.clientWidth + 1 && inner.offsetWidth <= box.clientWidth + 1;
+    }
+    box.style.fontSize = hi + 'px';
+    if (fits()) return;
+    while (hi - lo > 1){ var mid = (hi + lo) >> 1; box.style.fontSize = mid + 'px'; if (fits()) lo = mid; else hi = mid; }
+    box.style.fontSize = lo + 'px';
+    if (!fits()) box.dataset.overflow = '1';
+  });
+  if (window.__after) window.__after();
+};
+window.__qa = function(){
+  var cs = getComputedStyle(document.documentElement), out = [];
+  var W = +cs.getPropertyValue('--Wn'), H = +cs.getPropertyValue('--Hn');
+  var st = +cs.getPropertyValue('--st'), sb = +cs.getPropertyValue('--sb'), ss = +cs.getPropertyValue('--ss');
+  document.querySelectorAll('[data-overflow]').forEach(function(e){
+    out.push('text overflow: "' + e.innerText.replace(/\s+/g,' ').slice(0,60) + '" does not fit at the minimum size; shorten it');
+  });
+  document.querySelectorAll('.txt').forEach(function(e){
+    var b = e.getBoundingClientRect();
+    if (!b.width || !e.innerText.trim()) return;
+    if (b.left < ss - 1 || b.right > W - ss + 1 || b.top < st - 1 || b.bottom > H - sb + 1)
+      out.push('safe zone: "' + e.innerText.replace(/\s+/g,' ').slice(0,40) + '" sits outside the safe area');
+  });
+  return out;
+};
+</script>
+</body></html>
